@@ -69,34 +69,36 @@ export default function App () {
     formData.append('file', audiogram)
     setStatus('In Progress')
     setErrorMessage(null)
-    axios({
-      method: 'post',
-      url: 'https://test.orka.team/audiogram-detection/',
-      data: formData,
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    }).then((response) => {
-      setProgress(100)
-      setStatus('Completed')
-      let leftData = []
-      let rightData = []
-      for (let i = 0; i < response.data['L'].length; i++) {
-        leftData.push([response.data['L'][i].frequency, response.data['L'][i].loss])
-      }
-      for (let i = 0; i < response.data['R'].length; i++) {
-        rightData.push([response.data['R'][i].frequency, response.data['R'][i].loss])
-      }
-      setLeftAudiogramData([leftData, [], []])
-      setRightAudiogramData([rightData, [], []])
-    }).catch((e) => {
-      setProgress(0)
-      setStatus('Initialized')
-      setAudiogram(null)
-      setErrorMessage(e.message)
-    })
-    // setLeftAudiogramData([[[250, 25], [500, 30], [1000, 60], [2000, 65], [4000, 85], [8000, 75]], [], []])
-    // setRightAudiogramData([[[250, 30], [500, 60], [1000, 80], [2000, 65], [4000, 85], [8000, 75]], [], []])
+    // axios({
+    //   method: 'post',
+    //   url: 'https://test.orka.team/audiogram-detection/',
+    //   data: formData,
+    //   headers: {
+    //     'Content-Type': 'multipart/form-data'
+    //   }
+    // }).then((response) => {
+    //   setProgress(100)
+    //   setStatus('Completed')
+    //   let leftData = []
+    //   let rightData = []
+    //   for (let i = 0; i < response.data['L'].length; i++) {
+    //     leftData.push([response.data['L'][i].frequency, response.data['L'][i].loss])
+    //   }
+    //   for (let i = 0; i < response.data['R'].length; i++) {
+    //     rightData.push([response.data['R'][i].frequency, response.data['R'][i].loss])
+    //   }
+    //   setLeftAudiogramData([leftData, [], []])
+    //   setRightAudiogramData([rightData, [], []])
+    // }).catch((e) => {
+    //   setProgress(0)
+    //   setStatus('Initialized')
+    //   setAudiogram(null)
+    //   setErrorMessage(e.message)
+    // })
+    setLeftAudiogramData([[[250, 25], [500, 30], [1000, 60], [2000, 65], [4000, 85], [8000, 75]], [], []])
+    setRightAudiogramData([[[250, 30], [500, 60], [1000, 80], [2000, 65], [4000, 85], [8000, 75]], [], []])
+    setProgress(100)
+    setStatus('Completed')
   }
 
   const Layout = ({ input, previews, submitButton, dropzoneProps, files, extra: { maxFiles } }) => {
